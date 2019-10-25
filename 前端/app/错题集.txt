@@ -1,0 +1,55 @@
+  主题样式  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+android:scaleType="fitXY"
+android:adjustViewBounds="true"
+单纯设置 ImageView 的 scaleType 为 fitXY总免不了图像会被拉伸，使原本的长宽比被破坏。而设置 adjustViewBounds 为 true 则可以使 ImageView 在展示待展示图像时保持待展示图像的长宽比。
+在代码里设置ImageView.最大宽度和最大高度，因为adjustViewBounds属性只有在设置了最大高度和最大宽度后才会起作用
+nt screenWidth = getScreenWidth(this);ViewGroup.LayoutParams 
+lp = testImage.getLayoutParams();
+lp.width = screenWidth;
+lp.height = LayoutParams.WRAP_CONTENT;
+testImage.setLayoutParams(lp);
+testImage.setMaxWidth(screenWidth);
+testImage.setMaxHeight(screenWidth * 5);
+
+关键是图片要用ImageView标签，java动态改变图片的时候要用setImageResource，不要用setBackgroundResource
+
+垂直居中的方法：
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#0363AF">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="详情"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+//定时器
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//		//修改ui需在主线程中
+//            }
+//        },1000,5000);//表示 1 秒钟后开始 5 秒钟为周期 重复执行
+
+//延迟1s执行一次
+     new Handler().postDelayed(new Runnable(){  
+         public void run() {  
+         //可直接在此修改界面
+         }  
+      }, delay); 
+
+        //定时器
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("11111");
+                handler.postDelayed(this, 2000);
+            }
+        };
+        new Thread(runnable).start();

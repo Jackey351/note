@@ -1,0 +1,43 @@
+﻿注意事项：如果node节点上面，包含Widget组件，且设定了top，bottom，left，right中的数值。
+例：right=50px，效果就是node节点始终距离屏幕右侧边缘50px；
+这时你给node加上cc.moveBy(2,-100,-100)动作，此时node只会在y方向运动，x方向不会运动。
+此时需要先解除Widget组件，才能去修改node的position属性。
+
+
+// 获取节点的组件，然后移除
+var widget = pauseNode.getComponent(cc.Widget);
+pauseNode.removeComponent(widget);
+//下一帧再执行更新位置
+            this.schedule(() => {
+                box.x = 0;
+                box.y = 0;
+                console.log(box)
+            }, 0);
+
+比如我new了一个selfComponent（继承自cc.Component)，设置好需要的值，现在想把这个组件添加到一堆node上，直接使用addComponent是不行的呀。
+
+bottom Number 本节点底边和父节点底边的距离，可填写负值，只有在 isAlignBottom 开启时才有作用。
+
+this.schedule()在跳出本程序前往其他程序时会失效，而setTimeOut()依然可用
+
+如果程序还没运行到预期的位置就不再继续执行，但却不报错。这种情况可以去检查一下作用域。会不会有var let 定义了相同名称的变量。
+
+widget的target不能是同级，只能是父级
+
+ this.schedule,setTimeout,setInterval 回调函数传参
+ let count =0;
+ this.func = this.matching.bind(this, count);
+ this.schedule(this.func, 1);
+ this.unschedule(this.func);
+  matching(count) {
+        console.log(count)
+    },
+
+
+    fillColor
+    ctx.fillColor = new cc.Color().fromHEX('#0000ff'); 
+    strokeColor
+    ctx.strokeColor = cc.hexToColor('#0000ff'); 
+
+只有子弹、垃圾等大量的东西才需要动态加载，
+像玩家这种主要角色还是需要多做几套不同的预制资源。
